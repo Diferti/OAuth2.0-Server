@@ -3,44 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>OAuth 2.0</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
+<div class="title">
     <h1>OAuth 2.0 Server</h1>
+</div>
+<div class="container">
     <div class="method">
         <h2>Client Credentials</h2>
         <form id="clientCredentialsForm">
-            <label for="idClient">Client ID:</label>
-            <input type="text" id="idClient" name="idClient">
-            <label for="clientSecret">Client Secret:</label>
-            <input type="text" id="clientSecret" name="clientSecret">
+            <div class="form-group">
+                <label for="idClient">Client ID:</label>
+                <input type="text" id="idClient" name="idClient">
+            </div>
+            <div class="form-group">
+                <label for="clientSecret">Client Secret:</label>
+                <input type="text" id="clientSecret" name="clientSecret">
+            </div>
             <button type="button" onclick="clientCredentials()">Submit</button>
         </form>
         <p id="clientCredResult"></p>
     </div>
+    <div class="method">
+        <h2>Resource Owner Password</h2>
+        <form id="passwordCredentialsForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="idClientP">Client ID:</label>
+                <input type="text" id="idClientP" name="idClientP">
+            </div>
+            <div class="form-group">
+                <label for="clientSecretP">Client Secret:</label>
+                <input type="text" id="clientSecretP" name="clientSecretP">
+            </div>
+            <button type="button" onclick="passwordCredentials()">Submit</button>
+        </form>
+        <p id="passwordCredResult"></p>
+    </div>
 </div>
 </body>
-<script>
-    function clientCredentials() {
-        const form = document.getElementById('clientCredentialsForm');
-        const idClient = form.idClient.value;
-        const clientSecret = form.clientSecret.value;
-
-        fetch('http://localhost:8000/clientCredentials', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                idClient: idClient,
-                clientSecret: clientSecret,
-                grantType: 'clientCredentials'
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('clientCredResult').innerText = JSON.stringify(data);
-            });
-    }
-</script>
+<script src="index.js"></script>
 </html>

@@ -1,0 +1,68 @@
+.title {
+    margin: 50px 0;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+.method {
+    width: 400px;
+    border: 1px solid rgba(53, 53, 53, 0.2);
+    text-align: center;
+    margin-right: 50px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.method form {
+    text-align: center;
+}
+.method h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background: #216667;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    width: 400px;
+    margin-top: -20px;
+    margin-left: -21px;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(53, 53, 53, 0.2);
+}
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.form-group label {
+    margin-left: 30px;
+    text-align: center;
+    margin-right: 10px;
+    font-family: "Roboto", sans-serif;
+}
+.form-group input {
+    margin-bottom: 10px;
+    margin-right: 30px;
+    width: auto;
+    font-family: "Roboto", sans-serif;
+    padding: 5px;
+    border: 1px solid #154142;
+}
+.method button {
+    font-family: "Roboto", sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 200px;
+    padding: 5px;
+    background: #216667;
+    border: 1px solid #216667;
+    color: white;
+}
