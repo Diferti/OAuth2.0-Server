@@ -6,8 +6,41 @@
 </head>
 <body>
 <div class="container">
-    <h1>OAuth 2.0 Server UI</h1>
+    <h1>OAuth 2.0 Server</h1>
+    <div class="method">
+        <h2>Client Credentials</h2>
+        <form id="clientCredentialsForm">
+            <label for="idClient">Client ID:</label>
+            <input type="text" id="idClient" name="idClient">
+            <label for="clientSecret">Client Secret:</label>
+            <input type="text" id="clientSecret" name="clientSecret">
+            <button type="button" onclick="clientCredentials()">Submit</button>
+        </form>
+        <p id="clientCredResult"></p>
+    </div>
 </div>
 </body>
-<script src="server.js"></script>
+<script>
+    function clientCredentials() {
+        const form = document.getElementById('clientCredentialsForm');
+        const idClient = form.idClient.value;
+        const clientSecret = form.clientSecret.value;
+
+        fetch('http://localhost:8000/clientCredentials', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idClient: idClient,
+                clientSecret: clientSecret,
+                grantType: 'clientCredentials'
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('clientCredResult').innerText = JSON.stringify(data);
+            });
+    }
+</script>
 </html>
