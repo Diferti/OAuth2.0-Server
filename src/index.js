@@ -47,3 +47,10 @@ function passwordCredentials()
             document.getElementById('passwordCredResult').innerText = JSON.stringify(data);
         });
 }
+
+function implicit()
+{
+    const form = document.getElementById('implicitForm');
+    const idClient = form.idClientI.value;
+    window.location = `http://localhost:8000/implicit?grantType=implicit&idClient=${idClient}&redirect=http://localhost:8000/callback`;
+}

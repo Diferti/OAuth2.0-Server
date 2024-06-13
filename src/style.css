@@ -66,3 +66,15 @@
     border: 1px solid #216667;
     color: white;
 }
+
+.method button {
+    font-family: "Roboto", sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    margin-bottom: 30px;
+    width: 200px;
+    padding: 5px;
+    background: #216667;
+    border: 1px solid #216667;
+    color: white;
+}

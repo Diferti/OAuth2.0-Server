@@ -40,6 +40,21 @@ server.post('/passwordCredentials', (req, res) => {
    }
    res.status(400).json({error: 'Invalid data'});
 });
+server.get('/implicit', (req, res) => {
+    const { grantType, idClient, redirect } = req.query;
+
+    if (grantType === 'implicit')
+    {
+        const client = dataBase.clients.find(c => c.idClient === idClient && c.redirect === redirect);
+        if (client)
+        {
+            const accessToken = 'implicit_access_token';
+            return res.redirect(`${redirect}#access_token=${accessToken}`);
+        }
+    }
+    res.status(400).json({ error: 'Invalid date' });
+});
+
 
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
