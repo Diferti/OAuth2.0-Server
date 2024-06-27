@@ -55,9 +55,28 @@
                 <label for="idClientI">Client ID:</label>
                 <input type="text" id="idClientI" name="idClientI">
             </div>
+            <div class="form-group">
+                <label for="redirectI">Redirect URI:</label>
+                <input type="text" id="redirectI" name="redirectI">
+            </div>
             <button type="button" onclick="implicit()">Submit</button>
         </form>
         <p id="implicitResult"></p>
+    </div>
+    <div class="method">
+        <h2>Authorization Code</h2>
+        <form id="authorizationCodeForm">
+            <div class="form-group">
+                <label for="idClientA">Client ID:</label>
+                <input type="text" id="idClientA" name="idClientA">
+            </div>
+            <div class="form-group">
+                <label for="redirectA">Redirect URI:</label>
+                <input type="text" id="redirectA" name="redirectA">
+            </div>
+            <button type="button" onclick="authorizationCode()">Submit</button>
+        </form>
+        <div class="result" id="authorizationResult"></div>
     </div>
 </div>
 </body>

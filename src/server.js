@@ -11,50 +11,71 @@ server.use(cors());
 server.use(parser.json());
 server.use(parser.urlencoded({ extended: true }));
 
-server.post('/clientCredentials', (req, res) => {
-    const {idClient, clientSecret, grantType} = req.body;
+const generateToken = (id) => {
+    return jwt.sign({ id }, 'private_key', { expiresIn: 100000 });
+};
 
-    if (grantType === 'clientCredentials')
+server.post('/client_credentials', (req, res) => {
+    const {client_id, client_secret, grant_type} = req.body;
+
+    if (grant_type === 'client_credentials')
     {
-        let client = dataBase.clients.find((x) => x.idClient === idClient && x.clientSecret === clientSecret);
+        let client = dataBase.clients.find((x) => x.client_id === client_id && x.client_secret === client_secret);
         if (client)
         {
-            return res.status(200).json({ access_token: 'client_credentials_access_token' });
+            const access_token = generateToken(client_id);
+            return res.status(200).json({ access_token: access_token });
         }
     }
     res.status(400).json({error: 'Invalid data'});
 });
 
-server.post('/passwordCredentials', (req, res) => {
-   const {username, password, idClient, clientSecret, grantType} = req.body;
+server.post('/password_credentials', (req, res) => {
+   const {username, password, client_id, client_secret, grant_type} = req.body;
 
-   if (grantType === 'passwordCredentials')
+   if (grant_type === 'password_credentials')
    {
        let user = dataBase.users.find((el) => el.username === username && el.password === password);
-       let client = dataBase.clients.find((x) => x.idClient === idClient && x.clientSecret === clientSecret);
+       let client = dataBase.clients.find((x) => x.client_id === client_id && x.client_secret === client_secret);
 
        if (user && client)
        {
-           return res.status(200).json({access_token: 'password_credentials_access_token'});
+           const access_token = generateToken(username);
+           return res.status(200).json({ access_token: access_token });
        }
    }
    res.status(400).json({error: 'Invalid data'});
 });
-server.get('/implicit', (req, res) => {
-    const { grantType, idClient, redirect } = req.query;
 
-    if (grantType === 'implicit')
+server.get('/implicit', (req, res) => {
+    const { grant_type, client_id, redirect_uri } = req.query;
+
+    if (grant_type === 'implicit')
     {
-        const client = dataBase.clients.find(c => c.idClient === idClient && c.redirect === redirect);
+        const client = dataBase.clients.find((x) => x.client_id === client_id && x.redirect_uri === redirect_uri);
         if (client)
         {
-            const accessToken = 'implicit_access_token';
-            return res.redirect(`${redirect}#access_token=${accessToken}`);
+            const access_token = generateToken(client_id);
+            return res.redirect(`${redirect_uri}?access_token=${access_token}`);
         }
     }
     res.status(400).json({ error: 'Invalid date' });
 });
 
+server.get('/authorization_code', (req, res) => {
+    const { grant_type, client_id, redirect_uri } = req.query;
+
+    if (grant_type === 'authorization_code')
+    {
+        const client = dataBase.clients.find((x) => x.client_id === client_id && x.redirect_uri === redirect_uri);
+        if (client)
+        {
+            const auth_code = Math.random().toString(36).substring(7);
+            return res.redirect(`${redirect_uri}?code=${auth_code}`);
+        }
+   }
+    res.status(400).json({ error: 'Invalid date' });
+});
 
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

@@ -1,7 +1,7 @@
 dataBase =  {
     clients: [
-        { idClient: 'client1', clientSecret: 'secret1', redirect: 'http://localhost:8000/callback'},
-        { idClient: 'client2', clientSecret: 'secret2', redirect: 'http://localhost:8000/callback'}
+        { client_id: 'client1', client_secret: 'secret1', redirect_uri: 'http://localhost:8000/callback' },
+        { client_id: 'client2', client_secret: 'secret2', redirect_uri: 'http://localhost:8000/callback' }
     ],
     users: [
         { username: 'user1', password: 'pass1' },
